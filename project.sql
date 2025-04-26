@@ -1,0 +1,70 @@
+CREATE DATABASE IF NOT EXISTS users_db;
+USE users_db;
+
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    full_name VARCHAR(100),
+    role ENUM('USER', 'ADMIN') DEFAULT 'USER',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE DATABASE IF NOT EXISTS parking_db;
+USE parking_db;
+
+CREATE TABLE parking_slots (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    location VARCHAR(255) NOT NULL,
+    slot_number VARCHAR(50) NOT NULL,
+    is_available BOOLEAN DEFAULT TRUE,
+    hourly_rate DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+CREATE DATABASE IF NOT EXISTS booking_db;
+USE booking_db;
+
+CREATE TABLE bookings (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    slot_id BIGINT NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    status ENUM('BOOKED', 'CANCELLED', 'COMPLETED') DEFAULT 'BOOKED',
+    total_price DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE DATABASE IF NOT EXISTS payment_db;
+USE payment_db;
+
+CREATE TABLE payments (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    booking_id BIGINT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    status ENUM('SUCCESS', 'FAILED', 'PENDING') DEFAULT 'PENDING',
+    payment_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE DATABASE IF NOT EXISTS notification_db;
+USE notification_db;
+
+CREATE TABLE notifications (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    message TEXT NOT NULL,
+    sent BOOLEAN DEFAULT FALSE,
+    sent_time TIMESTAMP NULL
+);
