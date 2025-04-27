@@ -1,0 +1,11 @@
+          [ Client (Postman/Frontend) ]
+                    |
+            [ API-Gateway ]
+                    |
+    -----------------------------------
+    |         |          |            |
+[User Service][Parking Slot][Booking][Payment]
+                    |
+                [MySQL DB]
+                    |
+             [Eureka Server]

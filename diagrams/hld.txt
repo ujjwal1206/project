@@ -1,0 +1,45 @@
+HLD (High Level Design) for Vehicle Parking System
+Architecture Type: Microservices Architecture
+Communication: REST (using RestTemplate)
+Service Discovery: Eureka Server
+API Gateway: Spring Cloud Gateway
+
+Services:
+
+Service	Responsibility
+Eureka Server	Service discovery and registration
+API Gateway	Routing requests to respective services, Authentication Filter
+User Service	Manage users (Admin, Customer)
+Parking Slot Service	Manage parking slots (add, remove, update availability)
+Booking Service	Booking and unbooking parking slots
+Payment Service	Payments for booking slots
+Common Library	DTOs, Enums, Constants, Common Exceptions
+
+Database (MySQL)
+
+Table	Belongs to	Description
+users	User Service	User details
+parking_slots	Parking Slot Service	Parking slot details
+bookings	Booking Service	Booking details
+payments	Payment Service	Payment transactions
+
+ER Diagram
+
+Users (id) <--> Bookings (user_id)
+ParkingSlots (id) <--> Bookings (parking_slot_id)
+Bookings (id) <--> Payments (booking_id)
+
+Flow:
+
+User registers/logs in via User Service.
+
+User requests available parking via Parking Slot Service.
+
+User books a slot using Booking Service.
+
+Payment is done through Payment Service.
+
+Gateway routes and secures all requests.
+
+Eureka keeps track of services.
+

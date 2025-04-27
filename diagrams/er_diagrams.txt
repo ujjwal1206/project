@@ -1,0 +1,15 @@
+User (id, username, password,email, role)
+    |
+    | user_id
+    |
+Booking (id, user_id, slot_id, booking_time)
+    |
+    | slot_id
+    |
+ParkingSlot (id, slot_number, is_available)
+
+Booking (id)
+    |
+    | booking_id
+    |
+Payment (id, booking_id, amount, payment_status)
